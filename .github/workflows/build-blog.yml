@@ -1,0 +1,39 @@
+name: Build Blog
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'posts/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install markdown python-frontmatter pygments beautifulsoup4 pyyaml
+        
+    - name: Run blog builder
+      run: |
+        python build_blog.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add site/
+        git commit -m "Build blog" || echo "No changes to commit"
+        git push

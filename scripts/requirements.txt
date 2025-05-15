@@ -1,2 +1,3 @@
 markdown
 python-slugify
+jinja2

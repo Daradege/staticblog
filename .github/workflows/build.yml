@@ -27,7 +27,7 @@ jobs:
         run: python convert.py
 
       - name: Push to repo
-      run: |
+        run: |
           git config user.name "Daradege"
           git config user.email "darg.q.a.a@gmail.com"
           git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/Daradege/staticblog.git

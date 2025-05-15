@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بلاگ خفن</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://v1.fontapi.ir/css/Vazir" rel="stylesheet">
+    <style>
+        body {
+            font-family: Vazir, sans-serif;
+        }
+        .toc a {
+            transition: all 0.3s ease;
+        }
+        .toc a:hover {
+            color: #3b82f6;
+            padding-right: 5px;
+        }
+        .prose a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .prose a:hover {
+            text-decoration: underline;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">بلاگ خفن</h1>
+            <p class="text-xl opacity-90">جایی برای نوشته‌های جالب و خواندنی</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for post in posts %}
+            <a href="{{ post.filename }}" class="block">
+                <div class="post-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 h-full flex flex-col">
+                    <div class="p-6 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">{{ post.title }}</h2>
+                        <p class="text-gray-600 text-sm mb-4">{{ post.date }}</p>
+                        <p class="text-gray-700">{{ post.excerpt }}</p>
+                    </div>
+                    <div class="px-6 py-3 bg-gray-50 border-t border-gray-100">
+                        <span class="text-blue-600 hover:text-blue-800 transition-colors">خواندن ادامه →</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2023 بلاگ خفن. تمام حقوق محفوظ است.</p>
+        </div>
+    </footer>
+</body>
+</html>

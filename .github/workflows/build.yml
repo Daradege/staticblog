@@ -28,9 +28,11 @@ jobs:
 
       - name: Push to repo
         run: |
+            git config --global --add safe.directory $GITHUB_WORKSPACE
             git config user.name "Daradege"
             git config user.email "darg.q.a.a@gmail.com"
-            git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/Daradege/staticblog.git
+            git remote remove origin
+            git remote add origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/Daradege/staticblog.git
             git remote -v
             git add site
             git commit -m "Update blog site" || echo "Nothing to commit"

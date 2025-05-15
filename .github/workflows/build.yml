@@ -1,0 +1,37 @@
+name: Build Blog
+
+on:
+  push:
+    paths:
+      - 'posts/**'
+      - 'convert.py'
+      - 'template/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build HTML
+        run: python convert.py
+
+      - name: Push to repo
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add site
+          git commit -m "Update blog site"
+          git push
+        env:
+          GIT_AUTH_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
